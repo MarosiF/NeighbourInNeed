@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "299296640638",
+    "firebase_url": "https://neighbourinneed-610c0.firebaseio.com",
+    "project_id": "neighbourinneed-610c0",
+    "storage_bucket": "neighbourinneed-610c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299296640638:android:cd12f24317106b04cfd22f",
+        "android_client_info": {
+          "package_name": "com.example.neighbourinneed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299296640638-91miog1mjppdim0oo6pttogomgt5998b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.neighbourinneed",
+            "certificate_hash": "4c8c6b4a40d3cfabf10cbef6367f0e25e7dd26e3"
+          }
+        },
+        {
+          "client_id": "299296640638-lv7r47u0ssb890c93h380b7fphc2s99v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc3xWccuimF7AGp_Mp6yvxsqnZoetMxkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299296640638-lv7r47u0ssb890c93h380b7fphc2s99v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
