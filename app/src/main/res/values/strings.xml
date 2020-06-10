@@ -1,14 +1,16 @@
 <resources>
-    <string name="app_name" translatable="false">Neighboor in need!</string>
-    <string name="register_user_name" translatable="false">User name</string>
-    <string name="register_user_name_hint" translatable="false">Name</string>
+    <string name="app_name" translatable="false">Neighbour In Need!</string>
+    <string name="register_username" translatable="false">Username</string>
+    <string name="username_hint" translatable="false">Username</string>
     <string name="register_submit_button" translatable="false">Submit</string>
-    <string name="mainpage_logo" translatable="false">Neighboor in need!</string>
+    <string name="mainpage_logo" translatable="false">Neighbour In Need!</string>
     <string name="mainpage_descr" translatable="false">Share, Care, Build communities! Find and offer help!</string>
     <string name="mainpage_button_login" translatable="false">Login</string>
     <string name="mainpage_button_register" translatable="false">Register</string>
-    <string name="register_password_hint" translatable="false">Password</string>
+    <string name="password_hint" translatable="false">Password</string>
     <string name="regsiter_email_hint" translatable="false">Email</string>
     <string name="regsiter_city_hint" translatable="false">City</string>
     <string name="register_postcode_hint" translatable="false">Postcode</string>
+    <string name="description_bg_image" translatable="false">This is the background view of our application. It shows some houses in Tuebingen (Germany).</string>
+    <string name="description_bg_dialog" translatable="false">This is the background view of the input dialogs. The user can type in all the information, which is needed to create a new account or login.</string>
 </resources>

@@ -3,15 +3,14 @@ package com.example.neighbourinneed;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.DatabaseRegistrar;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,19 +28,21 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerSubmitButton;
     private EditText inputName, inputPassword, inputEmail, inputCity, inputPostcode;
     private ProgressDialog loadingBar;
+    private String parentDbName = "Users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.activity_register);
 
         registerSubmitButton = (Button) findViewById(R.id.submitButton);
-        inputName = (EditText) findViewById(R.id.editText3);
-        inputPassword = (EditText) findViewById(R.id.editText4);
-        inputEmail = (EditText) findViewById(R.id.editText5);
-        inputCity  = (EditText) findViewById(R.id.editText6);
-        inputPostcode  = (EditText) findViewById(R.id.editText7);
+        inputName = (EditText) findViewById(R.id.inputUsername);
+        inputPassword = (EditText) findViewById(R.id.inputPassword);
+        inputEmail = (EditText) findViewById(R.id.inputEmail);
+        inputCity  = (EditText) findViewById(R.id.inputCity);
+        inputPostcode  = (EditText) findViewById(R.id.inputPostCode);
         loadingBar = new ProgressDialog(this);
+
 
 
         registerSubmitButton.setOnClickListener(new View.OnClickListener(){
@@ -80,34 +80,47 @@ public class RegisterActivity extends AppCompatActivity {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!(dataSnapshot.child("Users").child(name).exists())){
-                    HashMap<String, Object> userdataMap = new HashMap<>();
-                    userdataMap.put("name", name);
-                    userdataMap.put("password", password);
-                    userdataMap.put("email", email);
-                    userdataMap.put("city", city);
-                    userdataMap.put("postcode", postcode);
+                DataSnapshot ds = dataSnapshot.child(parentDbName);
+                if(!(ds.child(name).exists())){
+                    Iterable<DataSnapshot> user = ds.getChildren();
+                    for(DataSnapshot data : user) {
+                        String emailInDB = data.child("email").getValue().toString();
+                        System.out.println(ds);
+                        System.out.println("Email: " + emailInDB);
+                        if (!(email.equals(emailInDB))) {
+                            HashMap<String, Object> userdataMap = new HashMap<>();
+                            userdataMap.put("name", name);
+                            userdataMap.put("password", password);
+                            userdataMap.put("email", email);
+                            userdataMap.put("city", city);
+                            userdataMap.put("postcode", postcode);
 
-                    rootRef.child("Users").child(name).updateChildren(userdataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this, "Account has been created!", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
+                            rootRef.child("Users").child(name).updateChildren(userdataMap)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(RegisterActivity.this, "Account has been created!", Toast.LENGTH_SHORT).show();
+                                                loadingBar.dismiss();
 
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    else{
-                                        loadingBar.dismiss();
-                                        Toast.makeText(RegisterActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else{
+                                                loadingBar.dismiss();
+                                                Toast.makeText(RegisterActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
 
-                                    }
-                                }
-                            });
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "This Email " + email+ " already exsits", Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
+                        }
+                    }
+
                 }else{
-                    Toast.makeText(RegisterActivity.this, "This " + email+ "already exsits", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "This name " + name + " already exsits", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
             }
