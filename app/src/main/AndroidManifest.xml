@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainChooseActivity"></activity>
+        <activity android:name=".CreateAdActivity"></activity>
+        <activity android:name=".CreateAdSubcategoryActivitySearchActivity" />
+        <activity android:name=".CreateAdSubcategoryActivityOfferActivity" />
+        <activity android:name=".SearchSubcategoryActivity" />
+        <activity android:name=".CreateAdSubcategoryActivity" />
+        <activity android:name=".MainChooseActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

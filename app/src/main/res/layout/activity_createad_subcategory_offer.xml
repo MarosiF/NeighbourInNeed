@@ -39,27 +39,42 @@
         app:srcCompat="@drawable/bg" />
 
     <Button
-        android:id="@+id/main_choose_button_createad"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:id="@+id/createad_subcategory_offer_button_gift"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/blue_button"
+        android:fontFamily="@font/aclonica"
+        android:text="Gift"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/createad_subcategory_offer_button_offer"
+        app:layout_constraintEnd_toStartOf="@+id/createad_subcategory_offer_button_lend"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/createad_subcategory_offer_button_lend"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/blue_button"
         android:fontFamily="@font/aclonica"
         android:textColor="#FFFFFF"
-        android:text="Create advertisement"
-        app:layout_constraintBottom_toTopOf="@+id/main_choose_button_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="lend"
+        app:layout_constraintBottom_toTopOf="@+id/createad_subcategory_offer_button_offer"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/main_choose_button_search"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="60dp"
+        android:id="@+id/createad_subcategory_offer_button_offer"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/blue_button"
         android:fontFamily="@font/aclonica"
-        android:text="Search"
         android:textColor="#FFFFFF"
+        android:text="offer help"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
