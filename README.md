@@ -2,6 +2,8 @@
 
 In times of the Coronavirus we thought about implementing an application, which helps people to find/offer help/things to others in their neighbourhood. The name of the app will be "Neighbour in Need", we worked on the concept together.
 
+![alt text](https://github.com/MarosiF/NeighbourInNeed/tree/master/prototype/NeighbourInNeed_P1.jpg?raw=true)
+
 Our main functions are:
 1. Every user can create a profile, which includes name, address, phone number, E-Mail ...
 2. As a registrated user you can create an advertisement. We thought about two main categories: "Search for help" and "Offer help". In this category you can choose between three subcategories: "Give something for free", "Borrow/Lend something", "Offer help" e.g. doing the shopping
