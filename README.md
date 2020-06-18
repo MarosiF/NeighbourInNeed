@@ -2,7 +2,7 @@
 
 In times of the Coronavirus we thought about implementing an application, which helps people to find/offer help/things to others in their neighbourhood. The name of the app will be "Neighbour in Need", we worked on the concept together.
 
-![Test Image](https://github.com/MarosiF/NeighbourInNeed/tree/master/prototype/NeighbourInNeed_P1.png)
+![Test Image](https://github.com/MarosiF/NeighbourInNeed/tree/master/prototype/NeighbourInNeed_P1.png=250x250)
 
 Our main functions are:
 1. Every user can create a profile, which includes name, address, phone number, E-Mail ...
