@@ -11,6 +11,10 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
 
     private Button btSearchGift, btBorrow, btSearchHelp;
 
+    private static final String gift = "Gift";
+    private static final String borrowLend = "BorrowOrLend";
+    private static final String searchHelp = "Help";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +24,15 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
         btBorrow = (Button) findViewById(R.id.createad_subcategory_search_button_borrow);
         btSearchHelp = (Button) findViewById(R.id.createad_subcategory_search_button_search_help);
 
+        final String callingActivity = getIntent().getStringExtra("callingActivity");
+        System.out.println("Calling activity " + callingActivity);
+
         btSearchGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateAdSubcategoryActivitySearchActivity.this, CreateAdActivity.class);
+                intent.putExtra("mainCategory", callingActivity);
+                intent.putExtra("subcategory", gift);
                 startActivity(intent);
             }
         });
@@ -32,6 +41,8 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateAdSubcategoryActivitySearchActivity.this,CreateAdActivity.class);
+                intent.putExtra("mainCategory", callingActivity);
+                intent.putExtra("subcategory", borrowLend);
                 startActivity(intent);
             }
         });
@@ -40,6 +51,8 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateAdSubcategoryActivitySearchActivity.this, CreateAdActivity.class);
+                intent.putExtra("mainCategory", callingActivity);
+                intent.putExtra("subcategory", searchHelp);
                 startActivity(intent);
             }
         });

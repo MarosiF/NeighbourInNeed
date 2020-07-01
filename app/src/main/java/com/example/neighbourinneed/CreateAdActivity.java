@@ -27,6 +27,7 @@ public class CreateAdActivity extends AppCompatActivity {
     private Button createAdButtonSubmit;
     private EditText createAdName, createAdDays, createAdDate, createAdShipping, createAdDescription;
     private ProgressDialog loadingBar;
+    final private String parentDbName = "Advertisements";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +78,13 @@ public class CreateAdActivity extends AppCompatActivity {
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
 
+        final String mainCategory = getIntent().getStringExtra("mainCategory");
+        final String subCategory = getIntent().getStringExtra("subcategory");
+
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DataSnapshot ds = dataSnapshot.child("Advertisement");
+                DataSnapshot ds = dataSnapshot.child(parentDbName);
                 if (!(ds.child(name).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     userdataMap.put("name", name);
@@ -88,6 +92,8 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("date", date);
                     userdataMap.put("shipping", shipping);
                     userdataMap.put("description", description);
+                    userdataMap.put("mainCategory", mainCategory);
+                    userdataMap.put("subCategory", subCategory);
 
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -97,7 +103,7 @@ public class CreateAdActivity extends AppCompatActivity {
                                         Toast.makeText(CreateAdActivity.this, "Advertisement has been created!", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
 
-                                        Intent intent = new Intent(CreateAdActivity.this, LoginActivity.class);
+                                        Intent intent = new Intent(CreateAdActivity.this, MainChooseActivity.class);
                                         startActivity(intent);
                                     } else {
                                         loadingBar.dismiss();
@@ -107,7 +113,7 @@ public class CreateAdActivity extends AppCompatActivity {
                                 }
                             });
                 } else {
-                    Toast.makeText(CreateAdActivity.this, "This name " + name + " already exsits", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAdActivity.this, "This name " + name + " already exists", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
             }

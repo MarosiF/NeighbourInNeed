@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerSubmitButton;
     private EditText inputName, inputPassword, inputEmail, inputCity, inputPostcode;
     private ProgressDialog loadingBar;
-    private String parentDbName = "Users";
+    final private String parentDbName = "Users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     });
                         } else {
-                            Toast.makeText(RegisterActivity.this, "This Email " + email+ " already exsits", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "This Email " + email+ " already exists", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
                         }
                     }

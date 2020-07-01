@@ -11,6 +11,9 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
 
     private Button btSearchAd, btOfferAd;
 
+    private static final String search = "Search";
+    private static final String offer = "Offer";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +25,8 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
         btSearchAd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateAdSubcategoryActivity.this, CreateAdSubcategoryActivityOfferActivity.class);
+                Intent intent = new Intent(CreateAdSubcategoryActivity.this, CreateAdSubcategoryActivitySearchActivity.class);
+                intent.putExtra("callingActivity", search);
                 startActivity(intent);
             }
         });
@@ -30,7 +34,8 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
         btOfferAd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateAdSubcategoryActivity.this, CreateAdSubcategoryActivitySearchActivity.class);
+                Intent intent = new Intent(CreateAdSubcategoryActivity.this, CreateAdSubcategoryActivityOfferActivity.class);
+                intent.putExtra("callingActivity", offer);
                 startActivity(intent);
             }
         });
