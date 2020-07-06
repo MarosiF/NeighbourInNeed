@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.neighbourinneed.Model.Users;
+import com.example.neighbourinneed.Prevalent.Prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button submitButton;
     private ProgressDialog loadingBar;
     private String parentDbName = "Users";
+    private CheckBox chkBoxRememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         inputLoginPassword = (EditText) findViewById(R.id.inputLoginPassword);
         submitButton = (Button) findViewById(R.id.submitButton);
         loadingBar = new ProgressDialog(this);
+
+        chkBoxRememberMe = (CheckBox) findViewById(R.id.checkbox_remember_me);
+        Paper.init(this);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +74,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void AllowAccessToAccount(final String username, final String password) {
+
+        if(chkBoxRememberMe.isChecked())
+        {
+            Paper.book().write(Prevalent.usernamekey, username);
+            Paper.book().write(Prevalent.userpasswordkey, password);
+        }
+
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -89,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                         System.out.println("Success!");
                         if (userData.getPassword().equals(password)) {
                             Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(LoginActivity.this, MainChooseActivity.class);
