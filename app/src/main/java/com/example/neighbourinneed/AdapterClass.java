@@ -30,8 +30,9 @@ public class AdapterClass extends  RecyclerView.Adapter<AdapterClass.MyViewHolde
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.id.setText(list.get(position).getName());
-        holder.desc.setText(list.get(position).getDescription());
+        holder.id.setText("Title: " + list.get(position).getName());
+        holder.desc.setText("Description: " + list.get(position).getDescription());
+        holder.city.setText("City: " + list.get(position).getCity());
     }
 
     @Override
@@ -41,11 +42,12 @@ public class AdapterClass extends  RecyclerView.Adapter<AdapterClass.MyViewHolde
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, desc;
+        TextView id, desc, city;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.title);
             desc = itemView.findViewById(R.id.description);
+            city = itemView.findViewById(R.id.city);
         }
     }
 }
