@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SearchSubcategoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatabaseReference ref;
@@ -26,10 +28,11 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     RecyclerView recyclerView;
     SearchView searchView;
 
-    String [] mainCategories = {"Search", "Offer"};
-    String [] subCategories = {"All", "Search for a gift", "Borrow something", "Search for help"};
+    String [] mainCategories = {"All", "Search", "Offer"};
+    String [] subCategories = {"All", "Gift", "Loan", "Help"};
 
-    private String currentSubCategory;
+    private String currentMainCategory = "All";
+    private String currentSubCategory = "All";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,16 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         searchView = findViewById(R.id.searchView);
 
         Spinner spin = findViewById(R.id.spinner);
+        Spinner spin2 = findViewById(R.id.spinner2);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategories);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mainCategories);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
         spin.setOnItemSelectedListener(this);
+        spin2.setAdapter(adapter2);
+        spin2.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -64,21 +72,25 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         list = new ArrayList<Advertisement>();
-                        //switch()
+
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String mainCategoryInDB = ds.child("mainCategory").getValue().toString();
                             String subcategoryInDB = ds.child("subCategory").getValue().toString();
-                            System.out.println(subcategoryInDB);
-                            if (currentSubCategory == null || currentSubCategory.equals("All")) {
-                                list.add(ds.getValue(Advertisement.class));
-                            }
-                            else if (subcategoryInDB.equals(currentSubCategory)) {
-                                list.add(ds.getValue(Advertisement.class));
+                            if (mainCategoryInDB != null && subcategoryInDB != null) {
+                                if (currentSubCategory.equals("All") && currentMainCategory.equals("All")) {
+                                    list.add(ds.getValue(Advertisement.class));
+                                }
+                                else if (mainCategoryInDB.equals(currentMainCategory) && subcategoryInDB.equals(currentSubCategory)) {
+                                    list.add(ds.getValue(Advertisement.class));
+                                }
                             }
                         }
                         AdapterClass adapterClass = new AdapterClass(list);
                         recyclerView.setAdapter(adapterClass);
+                        /*if (list.size() == 0) {
+                            Toast.makeText(SearchSubcategoryActivity.this, "No advertisements found", Toast.LENGTH_SHORT).show();
+                        }*/
                     }
-
                 }
 
                 @Override
@@ -100,30 +112,40 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                     return false;
                 }
             });
-
         }
-
     }
 
     private void search(String s) {
-        ArrayList<Advertisement> myList = new ArrayList<Advertisement>();
-
-        for (Advertisement ad : list) {
-            if (ad.getDescription().toLowerCase().contains(s.toLowerCase())) {
-                myList.add(ad);
-
+        ArrayList<Advertisement> searchList = new ArrayList<Advertisement>();
+        try {
+            for (Advertisement ad : list) {
+                if (ad.getCity().toLowerCase().contains(s.toLowerCase())) {
+                    searchList.add(ad);
+                }
             }
+        } catch(NullPointerException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
-
-        AdapterClass adapterClass = new AdapterClass(myList);
+        AdapterClass adapterClass = new AdapterClass(searchList);
         recyclerView.setAdapter(adapterClass);
+        /*if (searchList.size() == 0) {
+            Toast.makeText(SearchSubcategoryActivity.this, "No advertisements found", Toast.LENGTH_SHORT).show();
+        }*/
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        currentSubCategory = subCategories[position];
+        int parentId = parent.getId();
+        switch (parentId)
+        {
+            case R.id.spinner:
+                currentMainCategory = mainCategories[position];
+                break;
+            case R.id.spinner2:
+                currentSubCategory = subCategories[position];
+                break;
+        }
         showAdvertisements();
-        System.out.println(subCategories[position]);
     }
 
     @Override

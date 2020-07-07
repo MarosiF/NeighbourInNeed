@@ -23,6 +23,13 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="sample" />
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="sample" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

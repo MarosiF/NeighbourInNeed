@@ -13,4 +13,7 @@
     <string name="register_postcode_hint" translatable="false">Postcode</string>
     <string name="description_bg_image" translatable="false">This is the background view of our application. It shows some houses in Tuebingen (Germany).</string>
     <string name="description_bg_dialog" translatable="false">This is the background view of the input dialogs. The user can type in all the information, which is needed to create a new account or login.</string>
+    <string name="lable_main_category" translatable="false">Main Category</string>
+    <string name="lable_subcategory" translatable="false">Subcategory</string>
+    <string name="search_desc_city_hint" translatable="false">Search for your city or a description</string>
 </resources>

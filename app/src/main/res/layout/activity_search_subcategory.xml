@@ -10,39 +10,46 @@
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelMainCategory"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelSubCategory"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <TextView
+        android:id="@+id/labelSubCategory"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/lable_subcategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelMainCategory" />
 
     <android.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="70dp"
         android:layout_margin="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:padding="10dp"
+        android:queryHint="@string/search_desc_city_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2"
-        app:queryHint="Search">
-    </android.widget.SearchView>
+        app:layout_constraintTop_toBottomOf="@+id/spinner2"></android.widget.SearchView>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/app_scroll_view"
@@ -90,5 +97,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation"/>
+
+    <TextView
+        android:id="@+id/labelMainCategory"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/lable_main_category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
