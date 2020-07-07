@@ -8,11 +8,12 @@ public class Advertisement {
     private String name;
     private String shipping;
     private String subCategory;
+    private String city;
 
     public Advertisement() {
     }
 
-    public Advertisement(String date, String days, String description, String mainCategory, String name, String shipping, String subCategory) {
+    public Advertisement(String date, String days, String description, String mainCategory, String name, String shipping, String subCategory, String city) {
         this.date = date;
         this.days = days;
         this.description = description;
@@ -20,34 +21,39 @@ public class Advertisement {
         this.name = name;
         this.shipping = shipping;
         this.subCategory = subCategory;
+        this.city = city;
     }
 
     public String getDate() {
-        return date;
+        return this.date;
     }
 
     public String getDays() {
-        return days;
+        return this.days;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getMainCategory() {
-        return mainCategory;
+        return this.mainCategory;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getShipping() {
-        return shipping;
+        return this.shipping;
     }
 
     public String getSubCategory() {
-        return subCategory;
+        return this.subCategory;
+    }
+
+    public String getCity() {
+        return this.city;
     }
 
     public void setDate(String date) {
@@ -76,5 +82,9 @@ public class Advertisement {
 
     public void setSubCategory(String subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
