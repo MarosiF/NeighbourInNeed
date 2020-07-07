@@ -36,7 +36,7 @@ public class CreateAdActivity extends AppCompatActivity {
 
     private Button createAdButtonSubmit;
     private ImageView createAdImage;
-    private EditText createAdName, createAdDays, createAdDate, createAdShipping, createAdDescription;
+    private EditText createAdName, createAdDays, createAdDate, createAdShipping, createAdDescription, createAdCity;
     private ProgressDialog loadingBar;
     final private String parentDbName = "Advertisements";
     private static final int galleryPick = 1;
@@ -64,6 +64,7 @@ public class CreateAdActivity extends AppCompatActivity {
         createAdDate = (EditText) findViewById(R.id.create_ad_date);
         createAdShipping  = (EditText) findViewById(R.id.create_ad_shipping);
         createAdDescription  = (EditText) findViewById(R.id.create_ad_description);
+        createAdCity  = (EditText) findViewById(R.id.create_ad_city);
         loadingBar = new ProgressDialog(this);
 
 
@@ -98,22 +99,23 @@ public class CreateAdActivity extends AppCompatActivity {
         String date = createAdDate.getText().toString();
         String shipping = createAdShipping.getText().toString();
         String description = createAdDescription.getText().toString();
+        String city = createAdCity.getText().toString();
 
         if(ImageUri == null){
             Toast.makeText(this, "You need to add an Image first!", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(name) || TextUtils.isEmpty(days) || TextUtils.isEmpty(date) || TextUtils.isEmpty(shipping) || TextUtils.isEmpty(description)){
+        }else if (TextUtils.isEmpty(name) || TextUtils.isEmpty(days) || TextUtils.isEmpty(date) || TextUtils.isEmpty(shipping) || TextUtils.isEmpty(description) || TextUtils.isEmpty(city)){
             Toast.makeText(CreateAdActivity.this, "Enter things!", Toast.LENGTH_SHORT).show();
         }else{
             loadingBar.setTitle("Create Advertisement");
             loadingBar.setMessage("Please wait while we are creating your advertisement");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
-            prepareAdd(name, days, date, shipping, description);
+            prepareAdd(name, days, date, shipping, description, city);
         }
 
     }
 
-    private void prepareAdd(final String name, final String days, final String date, final String shipping, final String description) {
+    private void prepareAdd(final String name, final String days, final String date, final String shipping, final String description, final String city) {
         final StorageReference filePath = ProductImagesRef.child(ImageUri.getLastPathSegment() + ".jpg");
         final UploadTask uploadTask = filePath.putFile(ImageUri);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -144,7 +146,7 @@ public class CreateAdActivity extends AppCompatActivity {
 
                             Toast.makeText(CreateAdActivity.this, "getting Product image Url successfully!", Toast.LENGTH_SHORT).show();
 
-                            persistAdvertisement(name, days, date, shipping, description);
+                            persistAdvertisement(name, days, date, shipping, description, city);
                         }
                     }
                 });
@@ -154,7 +156,7 @@ public class CreateAdActivity extends AppCompatActivity {
     }
 
 
-    private void persistAdvertisement(final String name, final String days, final String date, final String shipping, final String description) {
+    private void persistAdvertisement(final String name, final String days, final String date, final String shipping, final String description, final String city) {
 
 
         final DatabaseReference rootRef;
@@ -176,6 +178,7 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("description", description);
                     userdataMap.put("mainCategory", mainCategory);
                     userdataMap.put("subCategory", subCategory);
+                    userdataMap.put("city", city);
                     userdataMap.put("image", downloadImageUrl);
 
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)
@@ -189,9 +192,8 @@ public class CreateAdActivity extends AppCompatActivity {
                                         Intent intent = new Intent(CreateAdActivity.this, MainChooseActivity.class);
                                         startActivity(intent);
                                     } else {
-                                        loadingBar.dismiss();
                                         Toast.makeText(CreateAdActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
-
+                                        loadingBar.dismiss();
                                     }
                                 }
                             });
@@ -203,7 +205,9 @@ public class CreateAdActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                System.out.println(databaseError);
+                Toast.makeText(CreateAdActivity.this, "Sorry, there was an error with the database connection", Toast.LENGTH_SHORT).show();
+                loadingBar.dismiss();
             }
         });
 
