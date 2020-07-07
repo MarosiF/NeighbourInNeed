@@ -12,7 +12,7 @@ public class CreateAdSubcategoryActivityOfferActivity extends AppCompatActivity 
     private Button btGift, btLend, btOfferHelp;
 
     private static final String gift = "Gift";
-    private static final String borrowLend = "BorrowOrLend";
+    private static final String borrowLend = "Loan";
     private static final String searchHelp = "Help";
 
     @Override
