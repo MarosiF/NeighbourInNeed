@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.neighbourinneed.Prevalent.Prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -179,7 +180,7 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("mainCategory", mainCategory);
                     userdataMap.put("subCategory", subCategory);
                     userdataMap.put("city", city);
-                    userdataMap.put("image", downloadImageUrl);
+                    userdataMap.put("user", Prevalent.currentUser.getName());
 
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
