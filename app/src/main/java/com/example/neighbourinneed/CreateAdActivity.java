@@ -180,6 +180,7 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("mainCategory", mainCategory);
                     userdataMap.put("subCategory", subCategory);
                     userdataMap.put("city", city);
+                    userdataMap.put("image", downloadImageUrl);
                     userdataMap.put("user", Prevalent.currentUser.getName());
 
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)

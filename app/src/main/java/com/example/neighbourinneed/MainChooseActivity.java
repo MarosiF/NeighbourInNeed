@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainChooseActivity extends AppCompatActivity {
 
-    private Button btSearch, btCreateAd;
+    private Button btSearch, btCreateAd, btTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,7 @@ public class MainChooseActivity extends AppCompatActivity {
 
         btSearch = (Button) findViewById(R.id.main_choose_button_search);
         btCreateAd = (Button) findViewById(R.id.main_choose_button_createad);
+        btTest = (Button) findViewById(R.id.main_choose_button_test);
 
         btSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,14 @@ public class MainChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainChooseActivity.this, CreateAdSubcategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainChooseActivity.this, AdActivity.class);
                 startActivity(intent);
             }
         });

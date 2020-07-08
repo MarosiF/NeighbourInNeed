@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/app_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation">
+
+
+            <ImageView
+                android:id="@+id/image_ellipse_ad"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ellipse_ad" />
+
+            <Button
+                android:id="@+id/ad_button_submit"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:background="@drawable/blue_button"
+                android:fontFamily="@font/aclonica"
+                android:text="Contact"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ad_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/ad_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_ellipse_ad"
+                android:scaleType ="centerCrop"
+                app:srcCompat="@drawable/ic_photo_size_select_actual_black_24dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
+
+            <TextView
+                android:id="@+id/ad_days"
+                android:layout_width="313dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box2"
+                android:ems="10"
+                android:fontFamily="@font/aclonica"
+                android:hint="How long? 2 hours / 2 days"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#6886c5"
+                app:layout_constraintBottom_toTopOf="@+id/ad_date"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/ad_description"
+                android:layout_width="313dp"
+                android:layout_height="200dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box2"
+                android:ems="10"
+                android:fontFamily="@font/aclonica"
+                android:hint="Description"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#6886c5"
+                app:layout_constraintBottom_toTopOf="@+id/ad_button_submit"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/ad_date"
+                android:layout_width="313dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box2"
+                android:ems="10"
+                android:fontFamily="@font/aclonica"
+                android:hint="When? Date or Every Monday"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#6886c5"
+                app:layout_constraintBottom_toTopOf="@+id/ad_shipping"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/ad_name"
+                android:layout_width="313dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box2"
+                android:ems="10"
+                android:fontFamily="@font/aclonica"
+                android:hint="Name"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#6886c5"
+                app:layout_constraintBottom_toTopOf="@+id/ad_days"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/ad_shipping"
+                android:layout_width="313dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box2"
+                android:ems="10"
+                android:fontFamily="@font/aclonica"
+                android:hint="Shipping"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#6886c5"
+                app:layout_constraintBottom_toTopOf="@+id/ad_city"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/ad_city"
+                android:layout_width="313dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box2"
+                android:ems="10"
+                android:fontFamily="@font/aclonica"
+                android:hint="@string/regsiter_city_hint"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="#6886c5"
+                app:layout_constraintBottom_toTopOf="@+id/ad_description"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#ffe0ac"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

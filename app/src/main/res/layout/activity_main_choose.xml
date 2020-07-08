@@ -64,5 +64,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/main_choose_button_test"
+        android:layout_width="170dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:text="E-Mail Test"
+        app:layout_constraintBottom_toTopOf="@+id/main_choose_button_createad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout >
