@@ -8,14 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayDeque;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class AdapterClass extends  RecyclerView.Adapter<AdapterClass.MyViewHolder> {
-    ArrayList<Advertisement> list;
+    private ArrayList<Advertisement> list;
+    private OnAdvertisementListener onAdvertisementListener;
 
-    public AdapterClass(ArrayList<Advertisement> list) {
+    public AdapterClass(ArrayList<Advertisement> list, OnAdvertisementListener onAdvertisementListener) {
         this.list = list;
+        this.onAdvertisementListener = onAdvertisementListener;
     }
 
     @NonNull
@@ -24,7 +27,7 @@ public class AdapterClass extends  RecyclerView.Adapter<AdapterClass.MyViewHolde
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ad_holder, parent, false);
 
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, onAdvertisementListener);
     }
 
     @Override
@@ -40,14 +43,28 @@ public class AdapterClass extends  RecyclerView.Adapter<AdapterClass.MyViewHolde
         return this.list.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView id, desc, city;
-        public MyViewHolder(@NonNull View itemView) {
+        OnAdvertisementListener onAdvertisementListener;
+
+        public MyViewHolder(@NonNull View itemView, OnAdvertisementListener onAdvertisementListener) {
             super(itemView);
             id = itemView.findViewById(R.id.title);
             desc = itemView.findViewById(R.id.description);
             city = itemView.findViewById(R.id.city);
+            this.onAdvertisementListener = onAdvertisementListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onAdvertisementListener.onAdvertisementClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnAdvertisementListener {
+        void onAdvertisementClick(int position);
     }
 }

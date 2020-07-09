@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchSubcategoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SearchSubcategoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterClass.OnAdvertisementListener{
     DatabaseReference ref;
     ArrayList<Advertisement> list;
     RecyclerView recyclerView;
@@ -96,7 +98,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                                 }
                             }
                         }
-                        AdapterClass adapterClass = new AdapterClass(list);
+                        AdapterClass adapterClass = new AdapterClass(list, SearchSubcategoryActivity.this);
                         recyclerView.setAdapter(adapterClass);
                         if (list.size() == 0) {
                             Toast.makeText(SearchSubcategoryActivity.this, "No advertisements found", Toast.LENGTH_SHORT).show();
@@ -134,7 +136,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                     searchList.add(ad);
                 }
             }
-            AdapterClass adapterClass = new AdapterClass(searchList);
+            AdapterClass adapterClass = new AdapterClass(searchList, this);
             recyclerView.setAdapter(adapterClass);
         } catch(NullPointerException e) {
           System.out.println(Arrays.toString(e.getStackTrace()));
@@ -162,5 +164,13 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //show all
+    }
+
+    @Override
+    public void onAdvertisementClick(int position) {
+        System.out.println("onAdvertisementClick: was clicked" + position);
+
+        Intent intent = new Intent(SearchSubcategoryActivity.this, AdActivity.class);
+        startActivity(intent);
     }
 }
