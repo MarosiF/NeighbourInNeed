@@ -60,11 +60,12 @@ public class AdapterClass extends  RecyclerView.Adapter<AdapterClass.MyViewHolde
 
         @Override
         public void onClick(View v) {
-            onAdvertisementListener.onAdvertisementClick(getAdapterPosition());
+            Advertisement ad = list.get(getAdapterPosition());
+            onAdvertisementListener.onAdvertisementClick(getAdapterPosition(), list.get(getAdapterPosition()).getName());
         }
     }
 
     public interface OnAdvertisementListener {
-        void onAdvertisementClick(int position);
+        void onAdvertisementClick(int position, String nameAd);
     }
 }

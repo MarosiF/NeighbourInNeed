@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,14 +26,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchSubcategoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterClass.OnAdvertisementListener{
-    DatabaseReference ref;
-    ArrayList<Advertisement> list;
-    RecyclerView recyclerView;
-    SearchView searchView;
+    private DatabaseReference ref;
+    private ArrayList<Advertisement> list;
+    private ArrayList<Advertisement> searchList;
+    private RecyclerView recyclerView;
+    private SearchView searchView;
 
-    String [] mainCategories = {"All", "Search", "Offer"};
-    String [] subCategories = {"All", "Gift", "Loan", "Help"};
-    String all = "All";
+    private String [] mainCategories = {"All", "Search", "Offer"};
+    private String [] subCategories = {"All", "Gift", "Loan", "Help"};
+    private String all = "All";
 
     private String currentMainCategory = "All";
     private String currentSubCategory = "All";
@@ -129,7 +131,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     }
 
     private void search(String s) {
-        ArrayList<Advertisement> searchList = new ArrayList<Advertisement>();
+        searchList = new ArrayList<Advertisement>();
         try {
             for (Advertisement ad : list) {
                 if (ad.getCity().toLowerCase().contains(s.toLowerCase())) {
@@ -167,10 +169,14 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     }
 
     @Override
-    public void onAdvertisementClick(int position) {
+    public void onAdvertisementClick(int position, String nameAd) {
         System.out.println("onAdvertisementClick: was clicked" + position);
 
+        System.out.println(nameAd);
+
         Intent intent = new Intent(SearchSubcategoryActivity.this, AdActivity.class);
+        intent.putExtra("advertisement", nameAd);
+        //intent.putExtra("advertisement", (Parcelable) advertisement);
         startActivity(intent);
     }
 }

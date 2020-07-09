@@ -62,7 +62,14 @@ public class AdActivity extends AppCompatActivity {
         //just for test
         //Prevalent.currentAdName = advertisementID;
 
-        advertisementInfoDisplay(advertisementID);
+        String currentAd = getIntent().getStringExtra("advertisement");
+        //advertisementInfoDisplay(advertisementID);
+
+        //Advertisement ad = (Advertisement) getIntent().getSerializableExtra("advertisement");
+
+        advertisementInfoDisplay(currentAd);
+
+        //advertisementInfoDisplay(ad);
 
         adButtonContact.setOnClickListener(new View.OnClickListener() {
             @Override
