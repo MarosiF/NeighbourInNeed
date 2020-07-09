@@ -16,8 +16,8 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/bottom_navigation">
 
 
@@ -31,31 +31,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ellipse_ad" />
 
-            <Button
-                android:id="@+id/create_ad_button_submit"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:background="@drawable/blue_button"
-                android:fontFamily="@font/aclonica"
-                android:text="Submit"
-                android:textColor="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.513"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/create_ad_image"
                 android:layout_width="156dp"
                 android:layout_height="141dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/create_ad_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image_ellipse_ad"
-                android:scaleType ="centerCrop"
                 app:srcCompat="@drawable/ic_photo_size_select_actual_black_24dp" />
 
             <EditText
@@ -116,6 +102,7 @@
                 android:ems="10"
                 android:fontFamily="@font/aclonica"
                 android:hint="Name"
+                android:maxLength="30"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:textColor="#6886c5"
@@ -145,14 +132,31 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
                 android:ems="10"
                 android:fontFamily="@font/aclonica"
                 android:hint="@string/regsiter_city_hint"
+                android:maxLength="30"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/create_ad_description"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/create_ad_button_submit"
+                android:layout_width="142dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/blue_button"
+                android:fontFamily="@font/aclonica"
+                android:text="Submit"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -171,5 +175,3 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
