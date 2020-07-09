@@ -30,6 +30,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
 
     String [] mainCategories = {"All", "Search", "Offer"};
     String [] subCategories = {"All", "Gift", "Loan", "Help"};
+    String all = "All";
 
     private String currentMainCategory = "All";
     private String currentSubCategory = "All";
@@ -77,8 +78,18 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                             String mainCategoryInDB = ds.child("mainCategory").getValue().toString();
                             String subcategoryInDB = ds.child("subCategory").getValue().toString();
                             if (mainCategoryInDB != null && subcategoryInDB != null) {
-                                if (currentSubCategory.equals("All") && currentMainCategory.equals("All")) {
+                                if (currentSubCategory.equals(all) && currentMainCategory.equals(all)) {
                                     list.add(ds.getValue(Advertisement.class));
+                                }
+                                else if (currentMainCategory.equals(all) && !(currentSubCategory.equals(all))) {
+                                    if (subcategoryInDB.equals(currentSubCategory)) {
+                                        list.add(ds.getValue(Advertisement.class));
+                                    }
+                                }
+                                else if (currentSubCategory.equals(all) && !(currentMainCategory.equals(all))) {
+                                    if (mainCategoryInDB.equals(currentMainCategory)) {
+                                        list.add(ds.getValue(Advertisement.class));
+                                    }
                                 }
                                 else if (mainCategoryInDB.equals(currentMainCategory) && subcategoryInDB.equals(currentSubCategory)) {
                                     list.add(ds.getValue(Advertisement.class));
@@ -87,9 +98,9 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                         }
                         AdapterClass adapterClass = new AdapterClass(list);
                         recyclerView.setAdapter(adapterClass);
-                        /*if (list.size() == 0) {
+                        if (list.size() == 0) {
                             Toast.makeText(SearchSubcategoryActivity.this, "No advertisements found", Toast.LENGTH_SHORT).show();
-                        }*/
+                        }
                     }
                 }
 
@@ -123,14 +134,14 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                     searchList.add(ad);
                 }
             }
+            AdapterClass adapterClass = new AdapterClass(searchList);
+            recyclerView.setAdapter(adapterClass);
         } catch(NullPointerException e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
+          System.out.println(Arrays.toString(e.getStackTrace()));
         }
-        AdapterClass adapterClass = new AdapterClass(searchList);
-        recyclerView.setAdapter(adapterClass);
-        /*if (searchList.size() == 0) {
+        if (searchList.size() == 0) {
             Toast.makeText(SearchSubcategoryActivity.this, "No advertisements found", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     @Override
