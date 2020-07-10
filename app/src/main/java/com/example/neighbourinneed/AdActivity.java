@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.neighbourinneed.Model.Users;
+import com.example.neighbourinneed.Prevalent.Prevalent;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +25,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdActivity extends AppCompatActivity {
@@ -29,10 +34,12 @@ public class AdActivity extends AppCompatActivity {
     private Button adButtonContact;
     private CircleImageView adImage;
     private TextView adName, adDays, adDate, adShipping, adDescription, adCity, adUser;
-    private ProgressDialog loadingBar;
+    private ProgressDialog loadingBar, loadingBar2;
     DatabaseReference advertisementsRef, usersRef;
     private StorageReference productImagesRef;
+    final private String parentDbName = "Advertisements";
     private String ownerEmail, owner;
+    String currentAd;
 
     //for test ad id (name)
     private String advertisementID = "test0807test";
@@ -62,7 +69,7 @@ public class AdActivity extends AppCompatActivity {
         //just for test
         //Prevalent.currentAdName = advertisementID;
 
-        String currentAd = getIntent().getStringExtra("advertisement");
+        currentAd = getIntent().getStringExtra("advertisement");
         //advertisementInfoDisplay(advertisementID);
 
         //Advertisement ad = (Advertisement) getIntent().getSerializableExtra("advertisement");
@@ -144,9 +151,63 @@ public class AdActivity extends AppCompatActivity {
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send email using..."));
+            createRequestedAdPosition();
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "No email clients installed.", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void createRequestedAdPosition() {
+
+        final String adName = currentAd;
+        final String username = Prevalent.currentUser.getName();
+
+        final DatabaseReference rootRef;
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        final String id = adName+username;
+
+
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DataSnapshot ds = dataSnapshot.child(parentDbName);
+                if (!(ds.child(id).exists())) {
+                    HashMap<String, Object> userdataMap = new HashMap<>();
+                    userdataMap.put("id", id);
+                    userdataMap.put("adName", adName);
+                    userdataMap.put("username", username);
+
+                    rootRef.child("ConnectionTableRequested").child(id).updateChildren(userdataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AdActivity.this, "Connection has been created!", Toast.LENGTH_SHORT).show();
+
+
+                                        Intent intent = new Intent(AdActivity.this, MainChooseActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(AdActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+                } else {
+                    Toast.makeText(AdActivity.this, "This name " + id + " already exists", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println(databaseError);
+                Toast.makeText(AdActivity.this, "Sorry, there was an error with the database connection", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 

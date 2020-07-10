@@ -190,6 +190,7 @@ public class CreateAdActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(CreateAdActivity.this, "Advertisement has been created!", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
+                                        createOwnedAdPosition(name, Prevalent.currentUser.getName() );
 
                                         Intent intent = new Intent(CreateAdActivity.this, MainChooseActivity.class);
                                         startActivity(intent);
@@ -201,6 +202,56 @@ public class CreateAdActivity extends AppCompatActivity {
                             });
                 } else {
                     Toast.makeText(CreateAdActivity.this, "This name " + name + " already exists", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println(databaseError);
+                Toast.makeText(CreateAdActivity.this, "Sorry, there was an error with the database connection", Toast.LENGTH_SHORT).show();
+                loadingBar.dismiss();
+            }
+        });
+
+    }
+
+    private void createOwnedAdPosition(final String adName, final String username) {
+
+        final DatabaseReference rootRef;
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        final String id = adName+username;
+
+
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DataSnapshot ds = dataSnapshot.child(parentDbName);
+                if (!(ds.child(id).exists())) {
+                    HashMap<String, Object> userdataMap = new HashMap<>();
+                    userdataMap.put("id", id);
+                    userdataMap.put("adName", adName);
+                    userdataMap.put("username", username);
+
+                    rootRef.child("ConnectionTableOwned").child(id).updateChildren(userdataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(CreateAdActivity.this, "Connection has been created!", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+
+                                        Intent intent = new Intent(CreateAdActivity.this, MainChooseActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(CreateAdActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                                        loadingBar.dismiss();
+                                    }
+                                }
+                            });
+                } else {
+                    Toast.makeText(CreateAdActivity.this, "This name " + id + " already exists", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
             }

@@ -12,7 +12,7 @@
         android:layout_width="150dp"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
-        android:text="My Offer List"
+        android:text="My Owned Ad List"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
