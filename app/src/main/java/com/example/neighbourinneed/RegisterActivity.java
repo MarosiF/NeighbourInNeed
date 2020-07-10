@@ -159,6 +159,8 @@ public class RegisterActivity extends AppCompatActivity {
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
 
+        final String description = "default";
+
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -176,8 +178,8 @@ public class RegisterActivity extends AppCompatActivity {
                             userdataMap.put("email", email);
                             userdataMap.put("city", city);
                             userdataMap.put("postcode", postcode);
-                            userdataMap.put("postcode", "description");
-                            userdataMap.put("postcode", downloadImageUrl);
+                            userdataMap.put("description", description);
+                            userdataMap.put("image", downloadImageUrl);
 
                             rootRef.child("Users").child(name).updateChildren(userdataMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

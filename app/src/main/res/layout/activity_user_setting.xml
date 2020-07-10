@@ -51,7 +51,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/user_setting_pw"
                 android:layout_width="313dp"
                 android:layout_height="48dp"
@@ -77,7 +77,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_email"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/user_setting_description"
                 android:layout_width="313dp"
                 android:layout_height="200dp"
@@ -93,7 +93,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_button_save"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/user_setting_email"
                 android:layout_width="313dp"
                 android:layout_height="48dp"
@@ -125,7 +125,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_pw"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/user_setting_city"
                 android:layout_width="313dp"
                 android:layout_height="48dp"
@@ -141,7 +141,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_postcode"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/user_setting_postcode"
                 android:layout_width="313dp"
                 android:layout_height="48dp"

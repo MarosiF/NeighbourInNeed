@@ -1,18 +1,36 @@
 package com.example.neighbourinneed.Model;
 
 public class Users {
-    private String name, password, email, city, postcode;
+    private String name, password, email, city, postcode, image, description;
 
     public Users() {
 
     }
 
-    public Users(String name, String password, String email, String city, String postcode) {
+    public Users(String name, String password, String email, String city, String postcode, String image, String description) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.city = city;
         this.postcode = postcode;
+        this.image = image;
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setName(String name) {
