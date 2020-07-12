@@ -33,6 +33,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
+import io.paperdb.Paper;
+
 public class CreateAdActivity extends AppCompatActivity {
 
     private Button createAdButtonSubmit;
@@ -184,7 +186,8 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("subCategory", subCategory);
                     userdataMap.put("city", city);
                     userdataMap.put("image", downloadImageUrl);
-                    userdataMap.put("user", Prevalent.currentUser.getName());
+                    //userdataMap.put("user", Prevalent.currentUser.getName());
+                    userdataMap.put("user", Paper.book().read(Prevalent.usernamekey));
 
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.paperdb.Paper;
 
 public class UserSetting extends AppCompatActivity {
 
@@ -84,7 +85,8 @@ public class UserSetting extends AppCompatActivity {
         userPostcode= (EditText) findViewById(R.id.user_setting_postcode);
         userDescription= (EditText) findViewById(R.id.user_setting_description);
 
-        username = Prevalent.usernamekey;
+        //username = Prevalent.getCurrentUser().getName();
+        username = Paper.book().read(Prevalent.usernamekey);
 
         userInfoDisplay(username);
 

@@ -204,13 +204,9 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
 
     @Override
     public void onAdvertisementClick(int position, String nameAd) {
-        System.out.println("onAdvertisementClick: was clicked" + position);
-
-        System.out.println(nameAd);
 
         Intent intent = new Intent(SearchSubcategoryActivity.this, AdActivity.class);
         intent.putExtra("advertisement", nameAd);
-        //intent.putExtra("advertisement", (Parcelable) advertisement);
         startActivity(intent);
     }
 }
