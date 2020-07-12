@@ -91,19 +91,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createAccount(){
-        String name = inputName.getText().toString();
-        String password = inputPassword.getText().toString();
-        String email = inputEmail.getText().toString();
-        String city = inputCity.getText().toString();
-        String postcode = inputPostcode.getText().toString();
+        String name = inputName.getText().toString().trim();
+        String password = inputPassword.getText().toString().trim();
+        String email = inputEmail.getText().toString().trim();
+        String city = inputCity.getText().toString().trim();
+        String postcode = inputPostcode.getText().toString().trim();
 
         if(imageUri == null){
             Toast.makeText(this, "You need to add an Image first!", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password) || TextUtils.isEmpty(email) || TextUtils.isEmpty(city) || TextUtils.isEmpty(postcode)){
-            Toast.makeText(RegisterActivity.this, "Enter things!", Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(name) || name.length() < 8 || TextUtils.isEmpty(password) || password.length() < 8 ||
+                TextUtils.isEmpty(email) || email.length() < 8 || TextUtils.isEmpty(city) || city.length() < 2 ||
+                TextUtils.isEmpty(postcode) || postcode.length() < 5){
+            Toast.makeText(RegisterActivity.this, "All input fields must contain at least 8 letters, city may only " +
+                    "contain 2 or more, postcode should be 5 letters long!", Toast.LENGTH_SHORT).show();
         }else{
             loadingBar.setTitle("Create Account");
-            loadingBar.setMessage("Please wait, credentials bla blah");
+            loadingBar.setMessage("Please wait while creating your account");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
             prepareUser(name, password, email, city, postcode);

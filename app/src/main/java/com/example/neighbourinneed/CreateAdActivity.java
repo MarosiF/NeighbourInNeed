@@ -95,17 +95,20 @@ public class CreateAdActivity extends AppCompatActivity {
 
     private void createAdvertisement() {
 
-        String name = createAdName.getText().toString();
-        String days = createAdDays.getText().toString();
-        String date = createAdDate.getText().toString();
-        String shipping = createAdShipping.getText().toString();
-        String description = createAdDescription.getText().toString();
-        String city = createAdCity.getText().toString();
+        String name = createAdName.getText().toString().trim();
+        String days = createAdDays.getText().toString().trim();
+        String date = createAdDate.getText().toString().trim();
+        String shipping = createAdShipping.getText().toString().trim();
+        String description = createAdDescription.getText().toString().trim();
+        String city = createAdCity.getText().toString().trim();
 
         if(ImageUri == null){
             Toast.makeText(this, "You need to add an Image first!", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(name) || TextUtils.isEmpty(days) || TextUtils.isEmpty(date) || TextUtils.isEmpty(shipping) || TextUtils.isEmpty(description) || TextUtils.isEmpty(city)){
-            Toast.makeText(CreateAdActivity.this, "Enter things!", Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(name) || name.length() < 8 || TextUtils.isEmpty(days) || days.length() < 8 ||
+                TextUtils.isEmpty(date) || date.length() < 8 || TextUtils.isEmpty(shipping) || shipping.length() <8 ||
+                TextUtils.isEmpty(description) || description.length() < 8 || TextUtils.isEmpty(city) || city.length() < 2) {
+            Toast.makeText(CreateAdActivity.this, "All input fields must contain at least 8 letters, city may " +
+                            "only contain 2 or more!", Toast.LENGTH_SHORT).show();
         }else{
             loadingBar.setTitle("Create Advertisement");
             loadingBar.setMessage("Please wait while we are creating your advertisement");
