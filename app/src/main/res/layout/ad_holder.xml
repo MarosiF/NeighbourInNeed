@@ -16,23 +16,29 @@
             android:padding="10dp"
             android:text="sample"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="#996886c5"/>
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="sample" />
+            android:text="sample"
+            android:background="#996886c5"
+            />
 
         <TextView
             android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="sample" />
+            android:text="sample"
+            android:background="#996886c5"
+            />
+        
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000"/>
+        android:background="@drawable/rounded_corner"/>
 </androidx.cardview.widget.CardView>

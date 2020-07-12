@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                 TextUtils.isEmpty(email) || email.length() < 8 || TextUtils.isEmpty(city) || city.length() < 2 ||
                 TextUtils.isEmpty(postcode) || postcode.length() < 5){
             Toast.makeText(RegisterActivity.this, "All input fields must contain at least 8 letters, city may only " +
-                    "contain 2 or more, postcode should be 5 letters long!", Toast.LENGTH_SHORT).show();
+                    "contain 2 or more, postcode should be 5 letters long!", Toast.LENGTH_LONG).show();
         }else{
             loadingBar.setTitle("Create Account");
             loadingBar.setMessage("Please wait while creating your account");

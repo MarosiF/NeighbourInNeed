@@ -78,6 +78,7 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
     }
 
     private void showOwnAdvertisements() {
+        final String username = Prevalent.currentUser.getName();
         if (ref != null) {
             ref.addValueEventListener(new ValueEventListener() {
 
@@ -86,7 +87,8 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         list = new ArrayList<Advertisement>();
-                        String username = Paper.book().read(Prevalent.usernamekey);
+                        //String username = Prevalent.getCurrentUser().getName();
+                        //String username = Paper.book().read(Prevalent.usernamekey);
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                             if (Objects.requireNonNull(ds.child("user").getValue()).toString().equals(username)) {
                                 list.add(ds.getValue(Advertisement.class));

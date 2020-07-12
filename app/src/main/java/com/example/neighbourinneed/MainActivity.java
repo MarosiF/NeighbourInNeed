@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             if(!TextUtils.isEmpty(usernamekey) && !TextUtils.isEmpty(userpasswordkey)){
                 AllowAccess(usernamekey, userpasswordkey);
 
+
+
                 loadingBar.setTitle("Already Logged in!");
                 loadingBar.setMessage("Please wait...");
                 loadingBar.setCanceledOnTouchOutside(false);
@@ -97,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.child("Users").child(username).exists()) {
                     Users userData = dataSnapshot.child("Users").child(username).getValue(Users.class);
                     System.out.println(dataSnapshot.child("Users").child(username).getValue(Users.class));
-
                     //String uNDB = dataSnapshot.child(parentDbName).child(username).child("name").getValue().toString();
                     //System.out.println(uNDB);
                     System.out.println("Username: " + userData.getName());
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(MainActivity.this, MainChooseActivity.class);
+                            Prevalent.currentUser = userData;
                             startActivity(intent);
                         }
                     }

@@ -1,11 +1,15 @@
 package com.example.neighbourinneed;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CreateAdSubcategoryActivity extends AppCompatActivity {
 
@@ -14,10 +18,16 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
     private static final String search = "Search";
     private static final String offer = "Offer";
 
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createad_subcategory);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigation();
 
         btSearchAd = (Button) findViewById(R.id.createad_subcategory_button_search_help);
         btOfferAd = (Button) findViewById(R.id.createad_subcategory_button_offer_help);
@@ -39,6 +49,39 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    private void bottomNavigation() {
+        bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.nav_loupe:
+                        Intent intent = new Intent(CreateAdSubcategoryActivity.this, SearchSubcategoryActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_list_search_icon:
+                        Intent intent1 = new Intent(CreateAdSubcategoryActivity.this, SearchListActivity.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.nav_list_offer_icon:
+                        Intent intent2 = new Intent(CreateAdSubcategoryActivity.this, OfferListActivity.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.nav_home:
+                        Intent intent3 = new Intent(CreateAdSubcategoryActivity.this, MainChooseActivity.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.nav_profile_icon:
+                        Intent intent4 = new Intent(CreateAdSubcategoryActivity.this, UserSetting.class);
+                        startActivity(intent4);
+                        return true;
+
+                }
+                return false;
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.example.neighbourinneed.Model.Users;
 import com.example.neighbourinneed.Prevalent.Prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,8 @@ public class AdActivity extends AppCompatActivity {
     final private String parentDbName = "Advertisements";
     private String ownerEmail, owner;
     String currentAd;
+    private BottomNavigationView bottomNavigationView;
+    Advertisement advertisement;
 
     //for test ad id (name)
     private String advertisementID = "test0807test";
@@ -49,6 +53,10 @@ public class AdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigation();
 
         //waiting advertisememt ID/Name from Search
         //advertisememtID = getIntent().getStringExtra("advertisememtName");
@@ -88,6 +96,40 @@ public class AdActivity extends AppCompatActivity {
 
     }
 
+    private void bottomNavigation() {
+        bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.nav_loupe:
+                        Intent intent = new Intent(AdActivity.this, SearchSubcategoryActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_list_search_icon:
+                        Intent intent1 = new Intent(AdActivity.this, SearchListActivity.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.nav_list_offer_icon:
+                        Intent intent2 = new Intent(AdActivity.this, OfferListActivity.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.nav_home:
+                        Intent intent3 = new Intent(AdActivity.this, MainChooseActivity.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.nav_profile_icon:
+                        Intent intent4 = new Intent(AdActivity.this, UserSetting.class);
+                        startActivity(intent4);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+    }
+
     private void advertisementInfoDisplay(String advertisementID) {
 
         //DatabaseReference currentAdvertisementRef = advertisementsRef.child(Prevalent.getCurrentAdName());
@@ -97,7 +139,7 @@ public class AdActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Advertisement advertisement = dataSnapshot.getValue(Advertisement.class);
+                    advertisement = dataSnapshot.getValue(Advertisement.class);
 
                     // Picasso? adImage.setImageURI(advertisement.getImage());
                     Picasso.get().load(advertisement.getImage()).into(adImage);
@@ -141,17 +183,27 @@ public class AdActivity extends AppCompatActivity {
         });
     }
 
+    private String makeEmailBody(){
+        final String username = Prevalent.currentUser.getName();
+
+        String message = "Greetings " + advertisement.getUser() + " ! ";
+        message += username + "has requested the following advertisment: "+advertisement.getName() +". Have nice day! ";
+        message += "NeigbourInNeed";
+        return message;
+
+    }
 
     private void sendEmail(){
 
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:" + ownerEmail));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My email's subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "My email's body");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Request: " + advertisementID);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, makeEmailBody());
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send email using..."));
-            createRequestedAdPosition();
+
+            //createRequestedAdPosition();
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "No email clients installed.", Toast.LENGTH_SHORT).show();
         }

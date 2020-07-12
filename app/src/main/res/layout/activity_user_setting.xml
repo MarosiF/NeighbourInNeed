@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/image_ellipse_ad"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="140dp"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent"
@@ -45,14 +45,14 @@
                 app:layout_constraintHorizontal_bias="0.513"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_setting_image"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
                 android:scaleType="centerCrop"
-                app:civ_border_color="#FF000000"
+                app:civ_border_color="#6886c5"
                 app:civ_border_width="2dp"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_name"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
             <EditText
                 android:id="@+id/user_setting_pw"
                 android:layout_width="313dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
@@ -72,6 +72,8 @@
                 android:hint="Password"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_email"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -79,7 +81,7 @@
             <EditText
                 android:id="@+id/user_setting_description"
                 android:layout_width="313dp"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
@@ -88,6 +90,8 @@
                 android:hint="say something from you! :)"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_button_save"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -95,7 +99,7 @@
             <EditText
                 android:id="@+id/user_setting_email"
                 android:layout_width="313dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
@@ -104,6 +108,8 @@
                 android:hint="Email"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_city"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -111,7 +117,7 @@
             <TextView
                 android:id="@+id/user_setting_name"
                 android:layout_width="313dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
@@ -120,6 +126,8 @@
                 android:hint="Username"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_pw"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -127,7 +135,7 @@
             <EditText
                 android:id="@+id/user_setting_city"
                 android:layout_width="313dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
@@ -136,6 +144,8 @@
                 android:hint="City"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_postcode"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -143,7 +153,7 @@
             <EditText
                 android:id="@+id/user_setting_postcode"
                 android:layout_width="313dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box2"
@@ -152,6 +162,8 @@
                 android:hint="Postcode"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColor="#6886c5"
                 app:layout_constraintBottom_toTopOf="@+id/user_setting_description"
                 app:layout_constraintEnd_toEndOf="parent" />

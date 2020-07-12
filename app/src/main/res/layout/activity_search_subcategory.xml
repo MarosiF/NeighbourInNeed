@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchSubcategoryActivity">
+    tools:context=".SearchSubcategoryActivity"
+    android:background="#ffacb7">
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/labelMainCategory"
@@ -19,9 +22,10 @@
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/labelSubCategory"
@@ -30,10 +34,11 @@
     <TextView
         android:id="@+id/labelSubCategory"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:text="@string/lable_subcategory"
+        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelMainCategory" />
 
@@ -46,6 +51,7 @@
         android:layout_marginEnd="5dp"
         android:padding="10dp"
         android:queryHint="@string/search_desc_city_hint"
+        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +111,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:text="@string/lable_main_category"
+        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

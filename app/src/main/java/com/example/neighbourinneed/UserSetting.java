@@ -85,8 +85,8 @@ public class UserSetting extends AppCompatActivity {
         userPostcode= (EditText) findViewById(R.id.user_setting_postcode);
         userDescription= (EditText) findViewById(R.id.user_setting_description);
 
-        //username = Prevalent.getCurrentUser().getName();
-        username = Paper.book().read(Prevalent.usernamekey);
+        username = Prevalent.getCurrentUser().getName();
+        //username = Paper.book().read(Prevalent.usernamekey);
 
         userInfoDisplay(username);
 
@@ -124,14 +124,14 @@ public class UserSetting extends AppCompatActivity {
                     System.out.println("Image: " + user.getImage());
 
                     // Picasso? adImage.setImageURI(advertisement.getImage());
-                    //Picasso.get().load(user.getImage()).into(userImage);
+                    Picasso.get().load(user.getImage()).into(userImage);
 
                     userName.setText(user.getName());
                     userPw.setText(user.getPassword());
                     userMail.setText(user.getEmail());
                     userCity.setText(user.getCity());
                     userPostcode.setText(user.getPostcode());
-                    //userDescription.setText(user.getDescription());
+                    userDescription.setText(user.getDescription());
                 }
 
             }

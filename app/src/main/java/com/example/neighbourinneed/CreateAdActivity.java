@@ -10,6 +10,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class CreateAdActivity extends AppCompatActivity {
@@ -46,11 +49,16 @@ public class CreateAdActivity extends AppCompatActivity {
     private Uri ImageUri;
     private StorageReference ProductImagesRef;
     private String downloadImageUrl;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ad);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigation();
 
         createAdButtonSubmit = (Button) findViewById(R.id.create_ad_button_submit);
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("ProductImages");
@@ -79,6 +87,39 @@ public class CreateAdActivity extends AppCompatActivity {
         });
     }
 
+    private void bottomNavigation() {
+        bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.nav_loupe:
+                        Intent intent = new Intent(CreateAdActivity.this, SearchSubcategoryActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_list_search_icon:
+                        Intent intent1 = new Intent(CreateAdActivity.this, SearchListActivity.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.nav_list_offer_icon:
+                        Intent intent2 = new Intent(CreateAdActivity.this, OfferListActivity.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.nav_home:
+                        Intent intent3 = new Intent(CreateAdActivity.this, MainChooseActivity.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.nav_profile_icon:
+                        Intent intent4 = new Intent(CreateAdActivity.this, UserSetting.class);
+                        startActivity(intent4);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+    }
     private void OpenGallery() {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -186,8 +227,8 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("subCategory", subCategory);
                     userdataMap.put("city", city);
                     userdataMap.put("image", downloadImageUrl);
-                    //userdataMap.put("user", Prevalent.currentUser.getName());
-                    userdataMap.put("user", Paper.book().read(Prevalent.usernamekey));
+                    userdataMap.put("user", Prevalent.currentUser.getName());
+                    //userdataMap.put("user", Paper.book().read(Prevalent.usernamekey));
 
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
