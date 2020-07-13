@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchSubcategoryActivity"
-    android:background="#ffacb7">
+    android:background="@drawable/bg_ad_list">
 
     <Spinner
         android:id="@+id/spinner"
@@ -23,7 +23,7 @@
         android:id="@+id/spinner2"
         android:layout_width="0dp"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/rounded_corner_simple"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,22 +36,23 @@
         android:layout_width="150dp"
         android:layout_height="35dp"
         android:layout_marginStart="5dp"
+        android:fontFamily="@font/aclonica"
         android:layout_marginTop="10dp"
         android:text="@string/lable_subcategory"
-        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelMainCategory" />
 
     <android.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_margin="5dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/rounded_corner_simple"
         android:padding="10dp"
         android:queryHint="@string/search_desc_city_hint"
-        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#f9f9f9"
+        android:background="#ffe0ac"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,10 +109,10 @@
         android:id="@+id/labelMainCategory"
         android:layout_width="150dp"
         android:layout_height="35dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/aclonica"
         android:text="@string/lable_main_category"
-        android:background="@drawable/rounded_corner_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

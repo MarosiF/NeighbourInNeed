@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SearchListActivity extends AppCompatActivity {
+    /**
+     * Bottom navigation
+     */
+    private BottomNavigationView bottomNavigationView;
 
     /**
      * Initialize activity
@@ -20,8 +24,15 @@ public class SearchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_list);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigation();
 
+    }
+
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
+    private void bottomNavigation() {
         bottomNavigationView.setSelectedItemId(R.id.nav_list_search_icon);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,6 +60,5 @@ public class SearchListActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 }

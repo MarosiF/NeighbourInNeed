@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
 
     /**
-     * @param savedInstanceState
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

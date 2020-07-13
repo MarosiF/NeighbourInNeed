@@ -27,16 +27,35 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
+/**
+ * The UserSetting for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the Screen the user sees after clicking on the Profile button in the Bottom Menu
+ */
 public class UserSetting extends AppCompatActivity {
 
+    /**
+     * Views and Buttons for the user to see
+     */
     private Button saveButton;
     private CircleImageView userImage;
     private TextView userName;
     private EditText userPw, userMail, userCity, userPostcode, userDescription;
     private ProgressDialog loadingBar;
+
+    /**
+     * Database access parameter
+     */
     DatabaseReference  usersRef;
     private StorageReference userImagesRef;
+
     private String username;
+
+    /**
+     * Bottom navigation
+     */
+    private BottomNavigationView bottomNavigationView;
 
     /**
      * Initialize activity
@@ -46,35 +65,9 @@ public class UserSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setSelectedItemId(R.id.nav_profile_icon);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.nav_loupe:
-                        Intent intent = new Intent(UserSetting.this, SearchSubcategoryActivity.class);
-                        startActivity(intent);
-                        return true;
-                    case R.id.nav_list_search_icon:
-                        Intent intent1 = new Intent(UserSetting.this, SearchListActivity.class);
-                        startActivity(intent1);
-                        return true;
-                    case R.id.nav_list_offer_icon:
-                        Intent intent2 = new Intent(UserSetting.this, OfferListActivity.class);
-                        startActivity(intent2);
-                        return true;
-                    case R.id.nav_home:
-                        Intent intent3 = new Intent(UserSetting.this, MainChooseActivity.class);
-                        startActivity(intent3);
-                        return true;
-
-                }
-                return false;
-            }
-        });
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigation();
 
         userImagesRef = FirebaseStorage.getInstance().getReference().child("UserImages");
         usersRef= FirebaseDatabase.getInstance().getReference().child("Users");
@@ -103,9 +96,46 @@ public class UserSetting extends AppCompatActivity {
 
     }
 
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
+    private void bottomNavigation() {
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile_icon);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.nav_loupe:
+                        Intent intent = new Intent(UserSetting.this, SearchSubcategoryActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.nav_list_search_icon:
+                        Intent intent1 = new Intent(UserSetting.this, SearchListActivity.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.nav_list_offer_icon:
+                        Intent intent2 = new Intent(UserSetting.this, OfferListActivity.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.nav_home:
+                        Intent intent3 = new Intent(UserSetting.this, MainChooseActivity.class);
+                        startActivity(intent3);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+    }
+
     private void saveUserUpdates() {
     }
 
+    /**
+     * Displays the saved data of the user.
+     * @param username
+     */
     private void userInfoDisplay(String username) {
 
         //DatabaseReference currentAdvertisementRef = advertisementsRef.child(Prevalent.getCurrentAdName());

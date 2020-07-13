@@ -46,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     private String parentDbName = "Users";
 
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     /**
-     * The Method will get the stored userkeys from the EditTexts and will be initiate a login function.
+     * The Method will get the stored userdata from the EditTexts and will be initiate a login function.
      */
     private void loginUser() {
         String username = inputLoginUsername.getText().toString();
@@ -94,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The Method will access the userdate in firebase-database and
      * if the  userdata is correct it will store the userdate in Paper and Prevalent
-     * and  get the user to the nex Activity.
+     * and  get the user to the next Activity.
      * @param username stored username
      * @param password stored password
      */

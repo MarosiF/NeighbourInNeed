@@ -54,9 +54,7 @@ public class CreateAdActivity extends AppCompatActivity {
     private EditText createAdName, createAdDays, createAdDate, createAdShipping, createAdDescription, createAdCity;
     private ProgressDialog loadingBar;
 
-    /**
-     * Database access parameters and Image parameters
-     */
+
     final private String parentDbName = "Advertisements";
     private static final int galleryPick = 1;
     private Uri ImageUri;
@@ -78,7 +76,6 @@ public class CreateAdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_ad);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         bottomNavigation();
 
         createAdButtonSubmit = (Button) findViewById(R.id.create_ad_button_submit);

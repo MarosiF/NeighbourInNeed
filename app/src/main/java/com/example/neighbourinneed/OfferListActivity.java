@@ -25,11 +25,28 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import io.paperdb.Paper;
-
+/**
+ * The OfferList Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the Screen the user sees after clicking the Search button in the Main Choose Activity
+ */
 public class OfferListActivity extends AppCompatActivity implements AdapterClass.OnAdvertisementListener {
+
+    /**
+     * Views and Buttons for the user to see
+     */
     private DatabaseReference ref;
     private ArrayList<Advertisement> list;
+    /**
+     * Views for the user to see
+     */
     private RecyclerView recyclerView;
+
+    /**
+     * Bottom navigation
+     */
+    private BottomNavigationView bottomNavigationView;
 
     /**
      * Initialize activity
@@ -39,11 +56,18 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_list);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigation();
 
         ref = FirebaseDatabase.getInstance().getReference().child("Advertisement");
         recyclerView = findViewById(R.id.recyclerViewOfferList);
 
+    }
+
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
+    private void bottomNavigation() {
         bottomNavigationView.setSelectedItemId(R.id.nav_list_offer_icon);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,7 +95,6 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
                 return false;
             }
         });
-
     }
 
     @Override

@@ -36,7 +36,6 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_createad_subcategory_search);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         bottomNavigation();
 
         btSearchGift = (Button) findViewById(R.id.createad_subcategory_search_button_search_gift);

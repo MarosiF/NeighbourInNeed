@@ -26,6 +26,11 @@ public class MainChooseActivity extends AppCompatActivity {
     private Button btSearch, btCreateAd, btTest;
 
     /**
+     * Bottom navigation
+     */
+    private BottomNavigationView bottomNavigationView;
+
+    /**
      * Initialize activity
      * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
      */
@@ -34,8 +39,35 @@ public class MainChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_choose);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigation();
 
+
+        btSearch = (Button) findViewById(R.id.main_choose_button_search);
+        btCreateAd = (Button) findViewById(R.id.main_choose_button_createad);
+
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainChooseActivity.this, SearchSubcategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btCreateAd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainChooseActivity.this, CreateAdSubcategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
+    private void bottomNavigation() {
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,35 +95,5 @@ public class MainChooseActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-        btSearch = (Button) findViewById(R.id.main_choose_button_search);
-        btCreateAd = (Button) findViewById(R.id.main_choose_button_createad);
-        btTest = (Button) findViewById(R.id.main_choose_button_test);
-
-        btSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainChooseActivity.this, SearchSubcategoryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btCreateAd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainChooseActivity.this, CreateAdSubcategoryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainChooseActivity.this, AdActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }

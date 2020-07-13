@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * The Create Ad Subcategory Search Activity for the Application
  * @author Ebru Özcelik,Fanni Marosi
  * @version 1.0
- *  This is the Screen the user sees after clicking the Create Ad button in the Main Choose Activity
+ * This is the Screen the user sees after clicking the Create Ad button in the Main Choose Activity
  */
 public class CreateAdSubcategoryActivity extends AppCompatActivity {
 
@@ -61,6 +61,9 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
     private void bottomNavigation() {
         bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
 

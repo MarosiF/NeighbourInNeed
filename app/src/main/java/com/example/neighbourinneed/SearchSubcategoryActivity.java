@@ -28,7 +28,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchSubcategoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterClass.OnAdvertisementListener{
+
+    /**
+     * Database reference, used for connecting to firebase
+     */
     private DatabaseReference ref;
+
+    /**
+     * Views and Buttons for the user to see
+     */
     private ArrayList<Advertisement> list;
     private ArrayList<Advertisement> searchList;
     private RecyclerView recyclerView;
@@ -42,6 +50,11 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     private String currentSubCategory = "All";
 
     /**
+     * Bottom navigation
+     */
+    private BottomNavigationView bottomNavigationView;
+
+    /**
      * Initialize activity
      * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
      */
@@ -50,9 +63,29 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_subcategory);
 
-        //nav
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigation();
 
+        ref = FirebaseDatabase.getInstance().getReference().child("Advertisement");
+        recyclerView = findViewById(R.id.recyclerView);
+        searchView = findViewById(R.id.searchView);
+
+        Spinner spin = findViewById(R.id.spinner);
+        Spinner spin2 = findViewById(R.id.spinner2);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mainCategories);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(adapter);
+        spin.setOnItemSelectedListener(this);
+        spin2.setAdapter(adapter2);
+        spin2.setOnItemSelectedListener(this);
+    }
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
+    private void bottomNavigation() {
         bottomNavigationView.setSelectedItemId(R.id.nav_loupe);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -80,25 +113,11 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                 return false;
             }
         });
-
-
-        ref = FirebaseDatabase.getInstance().getReference().child("Advertisement");
-        recyclerView = findViewById(R.id.recyclerView);
-        searchView = findViewById(R.id.searchView);
-
-        Spinner spin = findViewById(R.id.spinner);
-        Spinner spin2 = findViewById(R.id.spinner2);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mainCategories);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategories);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapter);
-        spin.setOnItemSelectedListener(this);
-        spin2.setAdapter(adapter2);
-        spin2.setOnItemSelectedListener(this);
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStart() {
 
@@ -106,6 +125,9 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         showAdvertisements();
     }
 
+    /**
+     * The method will show the advertisement in a RecycleView according to the search criteria.
+     */
     private void showAdvertisements() {
 
         if (ref != null) {
@@ -168,6 +190,10 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         }
     }
 
+    /**
+     * Search for a specific word in the advertisement.
+     * @param s
+     */
     private void search(String s) {
         searchList = new ArrayList<Advertisement>();
         try {
@@ -186,6 +212,12 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         }
     }
 
+    /**
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         int parentId = parent.getId();
@@ -201,11 +233,22 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         showAdvertisements();
     }
 
+    /**
+     *
+     * @param parent
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //show all
     }
 
+    /**
+     * If one spesific ad was clicked,
+     * it will send the user to the next Activity,
+     * where he can see all the information of that advertisement.
+     * @param position
+     * @param nameAd
+     */
     @Override
     public void onAdvertisementClick(int position, String nameAd) {
 
