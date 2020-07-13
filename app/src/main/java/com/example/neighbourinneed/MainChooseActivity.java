@@ -12,10 +12,23 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * The Main Choose Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the Screen the user sees after successful Login
+ */
 public class MainChooseActivity extends AppCompatActivity {
 
+    /**
+     * Buttons for the user to see
+     */
     private Button btSearch, btCreateAd, btTest;
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,17 +92,6 @@ public class MainChooseActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-       // in der CreateAdSubcategoryActivity ich bekomme ein Nullpointer auf dem button ->
-       // btSearchAd = (Button) findViewById(R.id.createad_subcategory_button_search_help);
-       // aber es ist so in dem xml drinnen ><
 
-
-        /*btCreateAd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainChooseActivity.this, CreateAdSubcategoryActivityOfferActivity.class);
-                startActivity(intent);
-            }
-        });*/
     }
 }

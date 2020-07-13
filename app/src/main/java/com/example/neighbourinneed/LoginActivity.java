@@ -24,13 +24,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
 
+/**
+ * The Login Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the Screen the user sees after clicking the Login button in the Main Activity
+ */
 public class LoginActivity extends AppCompatActivity {
 
+    /**
+     * Views and Buttons for the user to see
+     */
     private EditText inputLoginUsername, inputLoginPassword;
     private Button submitButton;
     private ProgressDialog loadingBar;
-    private String parentDbName = "Users";
     private CheckBox chkBoxRememberMe;
+
+    /**
+     * Database access parameter
+     */
+    private String parentDbName = "Users";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * The Method will get the stored userkeys from the EditTexts and will be initiate a login function.
+     */
     private void loginUser() {
         String username = inputLoginUsername.getText().toString();
         String password = inputLoginPassword.getText().toString();
@@ -74,6 +91,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * The Method will access the userdate in firebase-database and
+     * if the  userdata is correct it will store the userdate in Paper and Prevalent
+     * and  get the user to the nex Activity.
+     * @param username stored username
+     * @param password stored password
+     */
     private void AllowAccessToAccount(final String username, final String password) {
 
         if(chkBoxRememberMe.isChecked())

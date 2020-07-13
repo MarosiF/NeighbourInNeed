@@ -10,7 +10,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+/**
+ * The Create Ad Subcategory Search Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ *  This is the Screen the user sees after clicking the Search button in the Create Add Subcategory Activity
+ */
 public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity {
 
     private Button btSearchGift, btBorrow, btSearchHelp;
@@ -21,6 +26,10 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
 
     private BottomNavigationView bottomNavigationView;
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +77,9 @@ public class CreateAdSubcategoryActivitySearchActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
     private void bottomNavigation() {
         bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
 

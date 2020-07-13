@@ -21,12 +21,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
 
+/**
+ * The Main Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the first Screen the user sees
+ */
 public class MainActivity extends AppCompatActivity {
 
 
+    /**
+     *Views and Buttons for the user to see
+     */
     private Button loginButton, registerButton;
     private ProgressDialog loadingBar;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,41 +66,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        automatedLogin();
+    }
+
+    /**
+     * The Method will get the stored userkeys and will be initiate an automated login.
+     */
+    private void automatedLogin() {
         String usernamekey = Paper.book().read(Prevalent.usernamekey);
         String userpasswordkey = Paper.book().read(Prevalent.userpasswordkey);
         if(usernamekey != "" && userpasswordkey  != "" ){
             if(!TextUtils.isEmpty(usernamekey) && !TextUtils.isEmpty(userpasswordkey)){
                 AllowAccess(usernamekey, userpasswordkey);
-
-
-
                 loadingBar.setTitle("Already Logged in!");
                 loadingBar.setMessage("Please wait...");
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
             }
         }
-
-        /*RegisterSubmitButton = (Button) findViewById(R.id.button);
-        InputName = (EditText) findViewById(R.id.editText);
-
-
-        RegisterSubmitButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                CreateAccount();
-            }
-        });
     }
 
-    private void CreateAccount(){
-        String name = InputName.getText().toString();
-    }
-    */
 
-
-    }
-
+    /**
+     * The Method will acces the userdate in firebase-database and
+     * if the stored userdata is correct it will automatically get the user to the nex Activity.
+     * @param username stored username
+     * @param password stored password
+     */
     private void AllowAccess(final String username, final String password){
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();

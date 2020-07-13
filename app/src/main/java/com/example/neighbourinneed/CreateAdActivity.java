@@ -38,19 +38,40 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
+/**
+ * The Create Ad Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the Screen the user sees after clicking the Create Advertisememnt button in the Main Choose Activity
+ */
 public class CreateAdActivity extends AppCompatActivity {
 
+    /**
+     * Views and Buttons for the user to see
+     */
     private Button createAdButtonSubmit;
     private ImageView createAdImage;
     private EditText createAdName, createAdDays, createAdDate, createAdShipping, createAdDescription, createAdCity;
     private ProgressDialog loadingBar;
+
+    /**
+     * Database access parameters and Image parameters
+     */
     final private String parentDbName = "Advertisements";
     private static final int galleryPick = 1;
     private Uri ImageUri;
     private StorageReference ProductImagesRef;
     private String downloadImageUrl;
+
+    /**
+     * Bottom navigation
+     */
     private BottomNavigationView bottomNavigationView;
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +108,9 @@ public class CreateAdActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * The Method for the user to interact with the bottomnavigation.
+     */
     private void bottomNavigation() {
         bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
 
@@ -120,6 +144,10 @@ public class CreateAdActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * If the user clicked the Image it will open the phone gallery and the user can select one image.
+     */
     private void OpenGallery() {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -127,6 +155,12 @@ public class CreateAdActivity extends AppCompatActivity {
         startActivityForResult(galleryIntent, galleryPick);
     }
 
+    /**
+     * The method gets the result as an image Uri if the parameters are correct.
+     * @param requestCode galleryPick
+     * @param resultCode  result must be OKE
+     * @param data shall not be null
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,6 +170,9 @@ public class CreateAdActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * The Method starts the ad creating process with getting the advertisement data from the views.
+     */
     private void createAdvertisement() {
 
         String name = createAdName.getText().toString().trim();
@@ -162,6 +199,15 @@ public class CreateAdActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * The method uploads the ad-image to Firebase storage and donwloading the Uri of the image from Storage
+     * @param name
+     * @param days
+     * @param date
+     * @param shipping
+     * @param description
+     * @param city
+     */
     private void prepareAdd(final String name, final String days, final String date, final String shipping, final String description, final String city) {
         final StorageReference filePath = ProductImagesRef.child(ImageUri.getLastPathSegment() + ".jpg");
         final UploadTask uploadTask = filePath.putFile(ImageUri);
@@ -203,6 +249,15 @@ public class CreateAdActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * The method will generate an advertisement instance in the database if the ad-data is correct.
+     * @param name
+     * @param days
+     * @param date
+     * @param shipping
+     * @param description
+     * @param city
+     */
     private void persistAdvertisement(final String name, final String days, final String date, final String shipping, final String description, final String city) {
 
 
@@ -263,6 +318,11 @@ public class CreateAdActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates an owner-link between user and ad.
+     * @param adName
+     * @param username
+     */
     private void createOwnedAdPosition(final String adName, final String username) {
 
         final DatabaseReference rootRef;

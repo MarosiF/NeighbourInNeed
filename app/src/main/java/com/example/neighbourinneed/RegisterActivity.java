@@ -32,18 +32,35 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
+/**
+ * The Register Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ * This is the Screen the user sees after clicking the Register button in the Main Activity
+ */
 public class RegisterActivity extends AppCompatActivity {
 
+    /**
+     * Views and Buttons for the user to see
+     */
     private Button registerSubmitButton;
     private EditText inputName, inputPassword, inputEmail, inputCity, inputPostcode;
+    private ImageView registerImage;
+
+    /**
+     * Database access parameters and Image parameters
+     */
     private ProgressDialog loadingBar;
     final private String parentDbName = "Users";
-    private ImageView registerImage;
     private static final int galleryPick = 1;
     private Uri imageUri;
     private StorageReference userImagesRef;
     private String downloadImageUrl;
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +92,23 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * If the user clicked the Image it will open the phone gallery and the user can select one image.
+     */
     private void OpenGallery() {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, galleryPick);
     }
+
+    /**
+     * The method gets the result as an image Uri if the parameters are correct.
+     * @param requestCode galleryPick
+     * @param resultCode  result must be OKE
+     * @param data shall not be null
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -90,6 +118,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * The Method starts the user creating process with getting the user data from the views.
+     */
     private void createAccount(){
         String name = inputName.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
@@ -112,10 +143,16 @@ public class RegisterActivity extends AppCompatActivity {
             prepareUser(name, password, email, city, postcode);
 
         }
-
-
     }
 
+    /**
+     * The method uploads the userimage to Firebase storage and donwloading the Uri of the image from Storage
+     * @param name
+     * @param password
+     * @param email
+     * @param city
+     * @param postcode
+     */
     private void prepareUser(final String name, final String password, final String email, final String city, final String postcode) {
         final StorageReference filePath = userImagesRef.child(imageUri.getLastPathSegment() + ".jpg");
         final UploadTask uploadTask = filePath.putFile(imageUri);
@@ -158,6 +195,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * The Method will access the userdate in firebase-database and
+     * if the userdata is correct it will generate and save an user-instance in the database
+     * and  get the user to the nex Activity.
+     * @param name
+     * @param password
+     * @param email
+     * @param city
+     * @param postcode
+     */
     private void ValidateEmail(final String name, final String password, final String email, final String city, final String postcode ){
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();

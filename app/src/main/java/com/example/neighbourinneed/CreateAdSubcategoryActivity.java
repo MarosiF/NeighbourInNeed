@@ -11,6 +11,12 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * The Create Ad Subcategory Search Activity for the Application
+ * @author Ebru Özcelik,Fanni Marosi
+ * @version 1.0
+ *  This is the Screen the user sees after clicking the Create Ad button in the Main Choose Activity
+ */
 public class CreateAdSubcategoryActivity extends AppCompatActivity {
 
     private Button btSearchAd, btOfferAd;
@@ -20,6 +26,10 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

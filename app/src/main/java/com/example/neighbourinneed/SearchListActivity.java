@@ -11,6 +11,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SearchListActivity extends AppCompatActivity {
 
+    /**
+     * Initialize activity
+     * @param savedInstanceState The savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
