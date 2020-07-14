@@ -42,7 +42,9 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     private RecyclerView recyclerView;
     private SearchView searchView;
 
+    // first drop down, filter main categories
     private String [] mainCategories = {"All", "Search", "Offer"};
+    // second drop down, filter subcategories
     private String [] subCategories = {"All", "Gift", "Loan", "Help"};
     private String all = "All";
 
@@ -73,6 +75,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
         Spinner spin = findViewById(R.id.spinner);
         Spinner spin2 = findViewById(R.id.spinner2);
 
+        // initialize adapter in order to display the items in the drop down menu for filtering the advertisements
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mainCategories);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCategories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -138,30 +141,38 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                     if (dataSnapshot.exists()) {
                         list = new ArrayList<Advertisement>();
 
+                        // iterate over all advertisements in dataSnapshot
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                             String mainCategoryInDB = ds.child("mainCategory").getValue().toString();
                             String subcategoryInDB = ds.child("subCategory").getValue().toString();
                             if (mainCategoryInDB != null && subcategoryInDB != null) {
+                                // show all advertisements
                                 if (currentSubCategory.equals(all) && currentMainCategory.equals(all)) {
                                     list.add(ds.getValue(Advertisement.class));
                                 }
+                                // show all from one main category
                                 else if (currentMainCategory.equals(all) && !(currentSubCategory.equals(all))) {
                                     if (subcategoryInDB.equals(currentSubCategory)) {
                                         list.add(ds.getValue(Advertisement.class));
                                     }
                                 }
+                                // show all from one subcategory
                                 else if (currentSubCategory.equals(all) && !(currentMainCategory.equals(all))) {
                                     if (mainCategoryInDB.equals(currentMainCategory)) {
                                         list.add(ds.getValue(Advertisement.class));
                                     }
                                 }
+                                // show specific advertisements, main and sub do not "All"
                                 else if (mainCategoryInDB.equals(currentMainCategory) && subcategoryInDB.equals(currentSubCategory)) {
                                     list.add(ds.getValue(Advertisement.class));
                                 }
                             }
                         }
+                        // initialize adapter
                         AdapterClass adapterClass = new AdapterClass(list, SearchSubcategoryActivity.this);
+                        // set adapter in RecyclerView
                         recyclerView.setAdapter(adapterClass);
+                        // no ads found
                         if (list.size() == 0) {
                             Toast.makeText(SearchSubcategoryActivity.this, "No advertisements found", Toast.LENGTH_SHORT).show();
                         }
@@ -181,6 +192,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
                     return false;
                 }
 
+                // text typed in
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     search(newText);
@@ -191,17 +203,19 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     }
 
     /**
-     * Search for a specific word in the advertisement.
-     * @param s
+     * Search for a specific city in the advertisement.
+     * @param s - city to search for
      */
     private void search(String s) {
         searchList = new ArrayList<Advertisement>();
         try {
             for (Advertisement ad : list) {
+                // search for given city
                 if (ad.getCity().toLowerCase().contains(s.toLowerCase())) {
                     searchList.add(ad);
                 }
             }
+            // initialize adapter and set it in RecyclerView
             AdapterClass adapterClass = new AdapterClass(searchList, this);
             recyclerView.setAdapter(adapterClass);
         } catch(NullPointerException e) {
@@ -213,6 +227,8 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     }
 
     /**
+     * This method checks, whether an item from the first spinner (main category) or second spinner
+     * (subcategory) was selected and updates the list of advertisements according to the selected item.
      * @param parent
      * @param view
      * @param position
@@ -243,7 +259,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
     }
 
     /**
-     * If one spesific ad was clicked,
+     * If one specific ad was clicked,
      * it will send the user to the next Activity,
      * where he can see all the information of that advertisement.
      * @param position
