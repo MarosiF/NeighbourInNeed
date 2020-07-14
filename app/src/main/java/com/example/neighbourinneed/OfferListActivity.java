@@ -65,7 +65,7 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
     }
 
     /**
-     * The Method for the user to interact with the bottomnavigation.
+     * The Method for the user to interact with the bottom navigation.
      */
     private void bottomNavigation() {
         bottomNavigationView.setSelectedItemId(R.id.nav_list_offer_icon);
@@ -104,8 +104,12 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
         showOwnAdvertisements();
     }
 
+    /**
+     * This method displays the current user's own advertisements.
+     */
     private void showOwnAdvertisements() {
         final String username = Prevalent.currentUser.getName();
+        // check database reference
         if (ref != null) {
             ref.addValueEventListener(new ValueEventListener() {
 
@@ -113,14 +117,18 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+                        // initialize list of ads
                         list = new ArrayList<Advertisement>();
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            // search for own advertisements
                             if (Objects.requireNonNull(ds.child("user").getValue()).toString().equals(username)) {
                                 list.add(ds.getValue(Advertisement.class));
                             }
                         }
+                        // initialize adapter
                         AdapterClass adapterClass = new AdapterClass(list, OfferListActivity.this);
                         recyclerView.setAdapter(adapterClass);
+                        // no own ads
                         if (list.size() == 0) {
                             Toast.makeText(OfferListActivity.this, "You haven't created any advertisements yet", Toast.LENGTH_SHORT).show();
                         }
@@ -138,6 +146,12 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
         }
     }
 
+    /**
+     * Implemented method from interface OnAdvertisementListener. A new activity, which shows the advertisement
+     * in detail is started, when an ad is clicked.
+     * @param position
+     * @param nameAd
+     */
     @Override
     public void onAdvertisementClick(int position, String nameAd) {
 

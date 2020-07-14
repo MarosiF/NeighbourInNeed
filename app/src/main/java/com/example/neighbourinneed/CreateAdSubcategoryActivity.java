@@ -62,7 +62,7 @@ public class CreateAdSubcategoryActivity extends AppCompatActivity {
     }
 
     /**
-     * The Method for the user to interact with the bottomnavigation.
+     * The Method for the user to interact with the bottom navigation.
      */
     private void bottomNavigation() {
         bottomNavigationView.getMenu().setGroupCheckable(0, false, true);

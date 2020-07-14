@@ -42,7 +42,7 @@ import io.paperdb.Paper;
  * The Create Ad Activity for the Application
  * @author Ebru Özcelik,Fanni Marosi
  * @version 1.0
- * This is the Screen the user sees after clicking the Create Advertisememnt button in the Main Choose Activity
+ * This is the Screen the user sees after clicking the Create Advertisement button in the Main Choose Activity
  */
 public class CreateAdActivity extends AppCompatActivity {
 
@@ -172,6 +172,7 @@ public class CreateAdActivity extends AppCompatActivity {
      */
     private void createAdvertisement() {
 
+        // read the input data
         String name = createAdName.getText().toString().trim();
         String days = createAdDays.getText().toString().trim();
         String date = createAdDate.getText().toString().trim();
@@ -179,6 +180,7 @@ public class CreateAdActivity extends AppCompatActivity {
         String description = createAdDescription.getText().toString().trim();
         String city = createAdCity.getText().toString().trim();
 
+        // check, if image added
         if(ImageUri == null){
             Toast.makeText(this, "You need to add an Image first!", Toast.LENGTH_SHORT).show();
         }else if (TextUtils.isEmpty(name) || name.length() < 8 || TextUtils.isEmpty(days) || days.length() < 8 ||
@@ -197,7 +199,7 @@ public class CreateAdActivity extends AppCompatActivity {
     }
 
     /**
-     * The method uploads the ad-image to Firebase storage and donwloading the Uri of the image from Storage
+     * The method uploads the ad-image to Firebase storage and downloading the Uri of the image from Storage.
      * @param name
      * @param days
      * @param date
@@ -261,6 +263,7 @@ public class CreateAdActivity extends AppCompatActivity {
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
 
+        // read the main and sub category
         final String mainCategory = getIntent().getStringExtra("mainCategory");
         final String subCategory = getIntent().getStringExtra("subcategory");
 
@@ -268,8 +271,10 @@ public class CreateAdActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot ds = dataSnapshot.child(parentDbName);
+                // used ad name as key, it has to be unique
                 if (!(ds.child(name).exists())) {
                     HashMap<String, Object> userdataMap = new HashMap<>();
+                    // put input vales into hash map
                     userdataMap.put("name", name);
                     userdataMap.put("days", days);
                     userdataMap.put("date", date);
@@ -282,18 +287,22 @@ public class CreateAdActivity extends AppCompatActivity {
                     userdataMap.put("user", Prevalent.currentUser.getName());
                     //userdataMap.put("user", Paper.book().read(Prevalent.usernamekey));
 
+                    // persist ad
                     rootRef.child("Advertisement").child(name).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    // ad successfully created
                                     if (task.isSuccessful()) {
                                         Toast.makeText(CreateAdActivity.this, "Advertisement has been created!", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                         createOwnedAdPosition(name, Prevalent.currentUser.getName() );
 
+                                        // redirect to main choose activity
                                         Intent intent = new Intent(CreateAdActivity.this, MainChooseActivity.class);
                                         startActivity(intent);
                                     } else {
+                                        // couldn't persist ad
                                         Toast.makeText(CreateAdActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                     }

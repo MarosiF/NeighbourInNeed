@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         chkBoxRememberMe = (CheckBox) findViewById(R.id.checkbox_remember_me);
         Paper.init(this);
 
+        // set ClickListener for button
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * The Method will access the userdate in firebase-database and
-     * if the  userdata is correct it will store the userdate in Paper and Prevalent
+     * The Method will access the user data in firebase-database and
+     * if the  userdata is correct it will store the user data in Paper and Prevalent
      * and  get the user to the next Activity.
      * @param username stored username
      * @param password stored password
@@ -111,17 +112,20 @@ public class LoginActivity extends AppCompatActivity {
             Paper.book().write(Prevalent.userpasswordkey, password);
         }
 
+        // initialize database reference
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
 
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // user already registered?
                 if (dataSnapshot.child(parentDbName).child(username).exists()) {
+                    // save user
                     Users userData = dataSnapshot.child(parentDbName).child(username).getValue(Users.class);
                     System.out.println(dataSnapshot.child(parentDbName).child(username).getValue(Users.class));
 
-                    //String uNDB = dataSnapshot.child(parentDbName).child(username).child("name").getValue().toString();
+                    // log attributes of user
                     System.out.println("Username: " + userData.getName());
                     System.out.println("Password: " + userData.getPassword());
                     System.out.println("EMail: " + userData.getEmail());
@@ -131,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                     System.out.println("Username: " + username);
                     if (userData.getName().equals(username)) {
                         System.out.println("Success!");
+                        // entered pw equals pw in database
                         if (userData.getPassword().equals(password)) {
                             Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
 
@@ -150,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else {
+                    // username doesn't exist
                     Toast.makeText(LoginActivity.this, "An account with this " + username + " doesn't exist", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }

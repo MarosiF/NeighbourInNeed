@@ -63,9 +63,6 @@ public class AdActivity extends AppCompatActivity {
 
         bottomNavigation();
 
-        //waiting advertisememt ID/Name from Search
-        //advertisememtID = getIntent().getStringExtra("advertisememtName");
-
         productImagesRef = FirebaseStorage.getInstance().getReference().child("ProductImages");
         advertisementsRef = FirebaseDatabase.getInstance().getReference().child("Advertisement");
         usersRef= FirebaseDatabase.getInstance().getReference().child("Users");
@@ -82,9 +79,12 @@ public class AdActivity extends AppCompatActivity {
         //just for test
         //Prevalent.currentAdName = advertisementID;
 
+        // get ad name from calling activity
         currentAd = getIntent().getStringExtra("advertisement");
+        // determine calling activity
         callingActivity = getIntent().getStringExtra("callingActivity");
 
+        // hide contact button when showing own advertisement
         if (callingActivity.equals("OfferList")) {
             adButtonContact.setVisibility(View.GONE);
         }
@@ -142,11 +142,13 @@ public class AdActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    // save ad
                     advertisement = dataSnapshot.getValue(Advertisement.class);
 
                     // Picasso? adImage.setImageURI(advertisement.getImage());
                     Picasso.get().load(advertisement.getImage()).into(adImage);
 
+                    // set view texts
                     adName.setText(advertisement.getName());
                     adDays.setText(advertisement.getDays());
                     adDate.setText(advertisement.getDate());
@@ -166,6 +168,9 @@ public class AdActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method reads the Email of the advertiser in the database.
+     */
     private void getOwnerEmail() {
         DatabaseReference currentUserRef = usersRef.child(owner);
         currentUserRef.addValueEventListener(new ValueEventListener() {
@@ -186,6 +191,10 @@ public class AdActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method creates the text, which should be sent in the Email.
+     * @return
+     */
     private String makeEmailBody(){
         final String username = Prevalent.currentUser.getName();
 
