@@ -254,6 +254,7 @@ public class SearchSubcategoryActivity extends AppCompatActivity implements Adap
 
         Intent intent = new Intent(SearchSubcategoryActivity.this, AdActivity.class);
         intent.putExtra("advertisement", nameAd);
+        intent.putExtra("callingActivity", "SearchSubcategory");
         startActivity(intent);
     }
 }

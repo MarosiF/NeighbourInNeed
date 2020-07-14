@@ -114,8 +114,6 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         list = new ArrayList<Advertisement>();
-                        //String username = Prevalent.getCurrentUser().getName();
-                        //String username = Paper.book().read(Prevalent.usernamekey);
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                             if (Objects.requireNonNull(ds.child("user").getValue()).toString().equals(username)) {
                                 list.add(ds.getValue(Advertisement.class));
@@ -145,6 +143,7 @@ public class OfferListActivity extends AppCompatActivity implements AdapterClass
 
         Intent intent = new Intent(OfferListActivity.this, AdActivity.class);
         intent.putExtra("advertisement", nameAd);
+        intent.putExtra("callingActivity", "OfferList");
         startActivity(intent);
     }
 }

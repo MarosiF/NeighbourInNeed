@@ -41,7 +41,8 @@ public class AdActivity extends AppCompatActivity {
     private StorageReference productImagesRef;
     final private String parentDbName = "Advertisements";
     private String ownerEmail, owner;
-    String currentAd;
+    private String currentAd;
+    private String callingActivity;
     private BottomNavigationView bottomNavigationView;
     Advertisement advertisement;
 
@@ -82,13 +83,13 @@ public class AdActivity extends AppCompatActivity {
         //Prevalent.currentAdName = advertisementID;
 
         currentAd = getIntent().getStringExtra("advertisement");
-        //advertisementInfoDisplay(advertisementID);
+        callingActivity = getIntent().getStringExtra("callingActivity");
 
-        //Advertisement ad = (Advertisement) getIntent().getSerializableExtra("advertisement");
+        if (callingActivity.equals("OfferList")) {
+            adButtonContact.setVisibility(View.GONE);
+        }
 
         advertisementInfoDisplay(currentAd);
-
-        //advertisementInfoDisplay(ad);
 
         adButtonContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +97,6 @@ public class AdActivity extends AppCompatActivity {
                 sendEmail();
             }
         });
-
-
     }
 
     private void bottomNavigation() {

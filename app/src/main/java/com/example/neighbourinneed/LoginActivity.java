@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             loadingBar.show();
 
             AllowAccessToAccount(username, password);
+            loadingBar.dismiss();
         }
 
     }
@@ -121,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                     System.out.println(dataSnapshot.child(parentDbName).child(username).getValue(Users.class));
 
                     //String uNDB = dataSnapshot.child(parentDbName).child(username).child("name").getValue().toString();
-                    //System.out.println(uNDB);
                     System.out.println("Username: " + userData.getName());
                     System.out.println("Password: " + userData.getPassword());
                     System.out.println("EMail: " + userData.getEmail());
@@ -143,6 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println(Prevalent.currentUser.getName());
 
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Your password is wrong, please try again", Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
                         }
                     }
 
